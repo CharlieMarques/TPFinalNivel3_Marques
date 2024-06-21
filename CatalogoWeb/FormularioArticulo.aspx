@@ -1,35 +1,77 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="FormularioArticulo.aspx.cs" Inherits="CatalogoWeb.FormularioArticulo" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
     <div class="row">
-    <div class="col-6">
-        <div class="mb-3">
-            <label for="txtId" class="form-label">Id: </label>
-            <asp:TextBox runat="server" ID="txtId" CssClass="form-control" />
-        </div>
-        <div class="mb-3">
-            <label for="txtNumero" class="form-label">Nombre: </label>
-            <asp:TextBox runat="server" ID="txtNumero" CssClass="form-control" />
-        </div>
-        <div class="mb-3">
-            <label for="txtDescripcion" class="form-label">Descripcion: </label>
-            <asp:TextBox runat="server" ID="txtDescripcion" CssClass="form-control" />
-        </div>
-        <div class="mb-3">
-            <label for="ddlMarca" class="form-label">Marca: </label>
-            <asp:DropDownList runat="server" ID="ddlMarca" CssClass="form-control" />
-        </div>
-        <div class="mb-3">
-            <label for="ddlCategoria" class="form-label">Categoria: </label>
-            <asp:DropDownList runat="server" ID="ddlCategoria" CssClass="form-control" />
-        </div>
+        <div class="col-6">
+            <div class="mb-3">
+                <label for="txtId" class="form-label">Id: </label>
+                <asp:TextBox runat="server" ID="txtId" CssClass="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="txtCodArticulo" class="form-label">Codigo de Articulo: </label>
+                <asp:TextBox runat="server" ID="txtCodArticulo" CssClass="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="txtNombre" class="form-label">Nombre: </label>
+                <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="txtPrecio" class="form-label">Precio: </label>
+                <asp:TextBox runat="server" ID="txtPrecio" CssClass="form-control" />
+            </div>
 
-        <div class="mb-3">
-            <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-primary" OnClick="btnAceptar_Click" runat="server" />
-            <a href="ListaArticulos.aspx">Cancelar</a>
+            <div class="mb-3">
+                <label for="ddlMarca" class="form-label">Marca: </label>
+                <asp:DropDownList runat="server" ID="ddlMarca" CssClass="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="ddlCategoria" class="form-label">Categoria: </label>
+                <asp:DropDownList runat="server" ID="ddlCategoria" CssClass="form-control" />
+            </div>
 
+            <div class="mb-3">
+                <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-primary" OnClick="btnAceptar_Click" runat="server" />
+                <a href="ListaArticulos.aspx">Cancelar</a>
+
+            </div>
         </div>
-    </div>
-</div>
+        <div class="col-6">
+            <div class="mb-3">
+                <label for="txtDescripcion" class="form-label">Descripcion: </label>
+                <asp:TextBox runat="server" ID="txtDescripcion" CssClass="form-control" />
+            </div>
+            <asp:UpdatePanel ID="UpdatePanel" runat="server">
+                <ContentTemplate>
+                    <div class="mb-3">
+                        <label for="txtImagenUrl" class="form-label">Url Imagen</label>
+                        <asp:TextBox runat="server" ID="txtImagenUrl" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtImagenUrl_TextChanged" />
+                    </div>
+                    <asp:Image ImageUrl="https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png" runat="server" ID="imgArticulo" Width="50%" />
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <asp:UpdatePanel runat="server">
+                    <ContentTemplate>
+
+                        <div class="mb-3">
+                            <asp:Button Text="Eliminar" ID="btnEliminar" OnClick="btnEliminar_Click" CssClass="btn btn-danger" runat="server" />
+                        </div>
+
+                        <%if (confirmaEliminacion)
+                            { %>
+                        <div class="mb-3">
+                            <asp:CheckBox Text="Confirmar Eliminacion" ID="chkConfirmaEliminacion" runat="server" />
+                            <asp:Button Text="Eliminar" ID="btnConfirmaEliminar" OnClick="btnConfirmaEliminar_Click" CssClass="btn btn-outline-danger" runat="server" />
+                        </div>
+                        </div>
+                   <%} %>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+        </div>
 </asp:Content>
