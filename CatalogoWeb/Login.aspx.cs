@@ -27,7 +27,7 @@ namespace CatalogoWeb
                 if (userDataBase.Loguear(usuario))
                 {
                     Session.Add("usuario", usuario);
-                    Response.Redirect("LoginPrueba.aspx", false);
+                    Response.Redirect("MiPerfil.aspx", false);
                 }
                 else
                 {

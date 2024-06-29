@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using DataBase;
 using Dominio;
+using Seguridad;
 
 namespace CatalogoWeb
 {
@@ -14,6 +15,11 @@ namespace CatalogoWeb
         public bool filtroAvanzado { get;set;}
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!SeguridadSession.esAdmin(Session["Usuario"]))
+            {
+                Session.Add("Error", "Se requieren permisos de admin para ingresar a esta pantalla");
+                Response.Redirect("Error.aspx", false);
+            }
             filtroAvanzado = false;
             ArticuloDataBase articulo = new ArticuloDataBase();
             Session.Add("listaArticulo", articulo.toList());

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "..\TPFinalNivel2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase", "..\TPFinalNivel2_Marques\DataBase\DataBase.csproj", "{31DABD64-686A-4D61-975F-36944DF54A94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seguridad", "Seguridad\Seguridad.csproj", "{1390695D-C069-4C89-888D-BDC74D9569E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{31DABD64-686A-4D61-975F-36944DF54A94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31DABD64-686A-4D61-975F-36944DF54A94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31DABD64-686A-4D61-975F-36944DF54A94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1390695D-C069-4C89-888D-BDC74D9569E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1390695D-C069-4C89-888D-BDC74D9569E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1390695D-C069-4C89-888D-BDC74D9569E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1390695D-C069-4C89-888D-BDC74D9569E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
