@@ -22,6 +22,16 @@ namespace CatalogoWeb
                 {
                     Response.Redirect("Login.aspx", false);
                 }
+                else
+                {
+                    Usuarios user = (Usuarios)Session["usuario"];
+                    if(user.Nombre == null)
+                    {
+                        lblUser.Text = user.Email;
+                    }
+                    else lblUser.Text = user.Nombre;
+                    
+                }
             }
             if (SeguridadSession.sessionActiva(Session["usuario"]))
             {
