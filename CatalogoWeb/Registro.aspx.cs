@@ -20,6 +20,9 @@ namespace CatalogoWeb
         {
             try
             {
+                Page.Validate();
+                if (!Page.IsValid)
+                    return;
                 Usuarios user = new Usuarios();
                 UsuariosDataBase userDatabase = new UsuariosDataBase();
 
