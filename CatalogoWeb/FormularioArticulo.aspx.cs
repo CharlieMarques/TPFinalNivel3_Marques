@@ -69,13 +69,21 @@ namespace CatalogoWeb
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
+            Page.Validate();
+            if (!Page.IsValid)
+                return;
             try
             {
+                if (string.IsNullOrEmpty(txtCodArticulo.Text)||string.IsNullOrEmpty(txtNombre.Text) ||string.IsNullOrEmpty(txtPrecio.Text))
+                {
+                    Session.Add("Error", "Faltan campos por completar");
+                    Response.Redirect("Error.aspx",false);
+                }
                 Articulo articuloNuevo = new Articulo();
                 ArticuloDataBase artNego = new ArticuloDataBase();
                 articuloNuevo.codArticulo = txtCodArticulo.Text;
                 articuloNuevo.nombre = txtNombre.Text;
-                articuloNuevo.descripcion = txtDescripcion.Text;
+                articuloNuevo.descripcion = txtDescripcion.Text;          
                 articuloNuevo.Precio = decimal.Parse(txtPrecio.Text);
                 articuloNuevo.urlImagen = txtImagenUrl.Text;
 
@@ -88,19 +96,20 @@ namespace CatalogoWeb
                 {
                     articuloNuevo.Id = int.Parse(txtId.Text);
                     artNego.modificarConSP(articuloNuevo);
-                    Response.Redirect("ListaArticulos.aspx");
+                    Response.Redirect("ListaArticulos.aspx", false);
                 }
                 else
                 {
                     artNego.agregarConSP(articuloNuevo);
-                    Response.Redirect("ListaArticulos.aspx");
+                    Response.Redirect("ListaArticulos.aspx", false);
                 }
 
 
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex);
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 

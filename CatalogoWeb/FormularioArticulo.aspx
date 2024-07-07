@@ -11,25 +11,31 @@
                 <asp:TextBox runat="server" ID="txtId" CssClass="form-control" />
             </div>
             <div class="mb-3">
-                <label for="txtCodArticulo" class="form-label">Codigo de Articulo: </label>
+                <label for="txtCodArticulo" class="form-label">* Codigo de Articulo: </label>
                 <asp:TextBox runat="server" ID="txtCodArticulo" CssClass="form-control" />
+                <asp:RequiredFieldValidator ErrorMessage="El Codigo es requerido." ControlToValidate="txtCodArticulo" ForeColor="DarkRed" runat="server" />
             </div>
             <div class="mb-3">
-                <label for="txtNombre" class="form-label">Nombre: </label>
+                <label for="txtNombre" class="form-label">* Nombre: </label>
                 <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" />
+                <asp:RequiredFieldValidator ErrorMessage="El nombre es requerido." ControlToValidate="txtNombre" ForeColor="DarkRed" runat="server" />
             </div>
             <div class="mb-3">
-                <label for="txtPrecio" class="form-label">Precio: </label>
+                <label for="txtPrecio" class="form-label">* Precio: </label>
                 <asp:TextBox runat="server" ID="txtPrecio" CssClass="form-control" />
+                <asp:RequiredFieldValidator ErrorMessage="El Precio es requerido." ControlToValidate="txtPrecio" ForeColor="DarkRed" runat="server" />
+                <asp:RangeValidator ErrorMessage="Ingresar un formato valido para precio" ControlToValidate="txtPrecio" Type="Double" MinimumValue="0" MaximumValue="70000000" runat="server" />
             </div>
 
-            <div class="mb-3">
-                <label for="ddlMarca" class="form-label">Marca: </label>
+            <div class="mb-3">       
+                <label for="ddlMarca" class="form-label">* Marca: </label>
                 <asp:DropDownList runat="server" ID="ddlMarca" CssClass="form-control" />
+                <asp:RequiredFieldValidator ErrorMessage="La Marca es requerida." ControlToValidate="ddlMarca" ForeColor="DarkRed" runat="server" />
             </div>
             <div class="mb-3">
-                <label for="ddlCategoria" class="form-label">Categoria: </label>
+                <label for="ddlCategoria" class="form-label">* Categoria: </label>
                 <asp:DropDownList runat="server" ID="ddlCategoria" CssClass="form-control" />
+                <asp:RequiredFieldValidator ErrorMessage="La Categoria es requerido." ControlToValidate="ddlCategoria" ForeColor="DarkRed" runat="server" />
             </div>
 
             <div class="mb-3">

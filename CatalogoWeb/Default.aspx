@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1>Bienvenido a tu catalogo de tecnologia</h1>
-    <p>Vas a encontrar multiples articulos</p>
+    <p>Estos son todos nuestros productos en stock</p>
 
     <div class ="row row-cols-1 row-cols-md-3 g-4">
         <asp:Repeater runat="server" ID="repRepetidor">
@@ -15,11 +15,11 @@
                             <h5 class="card-title"><%#Eval("nombre") %> </h5>
                             <p class="card-text"><%# Eval("descripcion") %> </p>
                             <a href="DetalleArticulo.aspx?id=<%#Eval("id")%>">Ver Detalle</a>
-                            <%--<asp:Button Text="Ejemplo" CssClass="btn btn-primary" runat="server" ID="btnEjemplo" CommandArgument='<%#Eval("id") %>' CommandName="ArticuloId" OnClick="btnEjemplo_Click" />--%>
+                            <%if (Seguridad.SeguridadSession.sessionActiva(Session["usuario"]))
+                                { %>                           
                             <asp:Button Text="Agregar a Favoritos" CssClass="btn btn-primary" runat="server" ID="btnFavoritos" CommandArgument='<%#Eval("Id") %>' CommandName="idArticulo" OnClick="btnFavoritos_Click"  />
-                        </div>
-                        
-
+                            <%} %>
+                        </div>                       
                     </div>
 
                 </div>

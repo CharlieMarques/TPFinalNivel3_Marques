@@ -32,7 +32,26 @@ namespace CatalogoWeb
 
         protected void btnQuitarFavoritos_Click(object sender, EventArgs e)
         {
+            int articuloId = int.Parse(((Button)sender).CommandArgument);
+            ArticuloDataBase artDb = new ArticuloDataBase();
+            ArticuloFavoritoDataBase artFavDB = new ArticuloFavoritoDataBase();
+            Usuarios user = new Usuarios();
+            try
+            {
+                if (SeguridadSession.sessionActiva(Session["usuario"]))
+                {
+                user = (Usuarios)Session["usuario"];
+                }
+                artFavDB.EliminarFavorito(articuloId,user.id);
+                Response.Redirect("Favoritos.aspx", false);
 
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("Error",ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
     }
 }

@@ -44,12 +44,20 @@ namespace CatalogoWeb
         {
             try
             {
+                Page.Validate();
+                if (!Page.IsValid)
+                    return;
                 UsuariosDataBase userDB = new UsuariosDataBase();
                 string ruta = Server.MapPath("./Images/");
                 Usuarios user = (Usuarios)Session["usuario"];
                 if (txtImagen.PostedFile.FileName != "")
                 {
                     txtImagen.PostedFile.SaveAs(ruta + "perfil-" + user.id + ".jpg");
+                }
+                if(string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtNombre.Text))
+                {
+                    Session.Add("Error", "Los campos Nombre y Apellido no pueden quedar vacios");
+                    Response.Redirect("Error.aspx", false);
                 }
                 user.Nombre = txtNombre.Text;
                 user.Apellido = txtApellido.Text;
