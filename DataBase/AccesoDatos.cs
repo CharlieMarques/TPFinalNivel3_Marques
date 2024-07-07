@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace DataBase
         }
         public AccesoDatos()
         {
-            connection = new SqlConnection("server=.\\SQLEXPRESS; database=CATALOGO_DB; integrated security=true");
+            connection = new SqlConnection("server=.\\SQLEXPRESS; database=CATALOGO_WEB_DB; integrated security=true");
             command = new SqlCommand();
         }
         public void read()
@@ -36,6 +37,11 @@ namespace DataBase
                 throw ex;
             }
         }
+        public void setProcedure(string sp)
+        {
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.CommandText = sp;
+        }
         public void runQuery()
         {
             command.Connection = connection;
@@ -43,6 +49,20 @@ namespace DataBase
             {
                 connection.Open();
                 command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public int runQueryScalar()
+        {
+            command.Connection = connection;
+            try
+            {
+                connection.Open();
+                return int.Parse(command.ExecuteScalar().ToString());
             }
             catch (Exception ex)
             {

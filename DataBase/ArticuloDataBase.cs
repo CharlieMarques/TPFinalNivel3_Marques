@@ -9,13 +9,18 @@ namespace DataBase
 {
     public class ArticuloDataBase
     {
-        public List<Articulo> toList()
+        public List<Articulo> toList(string id = "")
         {
             List<Articulo> list = new List<Articulo>();
              AccesoDatos data = new AccesoDatos();
             try
             {
-                data.setQuery("Select A.Id,A.Codigo, A.Nombre,A.Descripcion,Precio, C.Descripcion Categoria, M.Descripcion Marca, A.ImagenUrl, A.IdCategoria, A.IdMarca From ARTICULOS A, CATEGORIAS C, MARCAS M Where A.IdCategoria = C.Id and A.IdMarca = M.Id");
+                string query = "Select A.Id, A.Codigo, A.Nombre,A.Descripcion,Precio, C.Descripcion Categoria, M.Descripcion Marca, A.ImagenUrl, A.IdCategoria, A.IdMarca From ARTICULOS A, CATEGORIAS C, MARCAS M Where A.IdCategoria = C.Id and A.IdMarca = M.Id ";
+                if(id != "")
+                {
+                    query += " and A.Id = " + id;
+                }
+                data.setQuery(query);
                 data.read();
                 while (data.Reader.Read())
                 {
@@ -79,12 +84,72 @@ namespace DataBase
                 dataAgregar.closeConnection();
             }
         }
-            public void modificar(Articulo articulo)
+        public void agregarConSP(Articulo articulo)
+        {
+            AccesoDatos dataAgregar = new AccesoDatos();
+            try
+            {
+                dataAgregar.setProcedure("storedAgregarArticulo");
+
+                dataAgregar.setParameter("@Codigo", articulo.codArticulo);
+                dataAgregar.setParameter("@Nombre", articulo.nombre);
+                if (articulo.descripcion == null || articulo.descripcion == "")
+                {
+                    articulo.descripcion = "Sin Descripcion";
+                }
+                dataAgregar.setParameter("@Descripcion", articulo.descripcion);
+                dataAgregar.setParameter("@IdMarca", articulo.marca.Id);
+                dataAgregar.setParameter("@IdCategoria", articulo.categoria.Id);
+                dataAgregar.setParameter("@ImagenUrl", articulo.urlImagen);
+                dataAgregar.setParameter("@Precio", articulo.Precio);
+                dataAgregar.runQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                dataAgregar.closeConnection();
+            }
+        }
+        public void modificar(Articulo articulo)
         {
             AccesoDatos dataModificar = new AccesoDatos();
             try
             {
                 dataModificar.setQuery("update ARTICULOS set Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, IdMarca = @IdMarca, IdCategoria = @IdCategoria, ImagenUrl = @ImagenUrl, Precio = @Precio where Id = @Id");
+                dataModificar.setParameter("@Id", articulo.Id);
+                dataModificar.setParameter("@Codigo", articulo.codArticulo);
+                dataModificar.setParameter("@Nombre", articulo.nombre);
+                if (articulo.descripcion == null || articulo.descripcion == "")
+                {
+                    articulo.descripcion = "Sin Descripcion";
+                }
+                dataModificar.setParameter("@Descripcion", articulo.descripcion);
+                dataModificar.setParameter("@IdMarca", articulo.marca.Id);
+                dataModificar.setParameter("@IdCategoria", articulo.categoria.Id);
+                dataModificar.setParameter("@ImagenUrl", articulo.urlImagen);
+                dataModificar.setParameter("@Precio", articulo.Precio);
+                dataModificar.runQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                dataModificar.closeConnection();
+            }
+        }
+        public void modificarConSP(Articulo articulo)
+        {
+            AccesoDatos dataModificar = new AccesoDatos();
+            try
+            {
+                dataModificar.setProcedure("storedModificarArticulo");
                 dataModificar.setParameter("@Id", articulo.Id);
                 dataModificar.setParameter("@Codigo", articulo.codArticulo);
                 dataModificar.setParameter("@Nombre", articulo.nombre);
@@ -136,7 +201,7 @@ namespace DataBase
 
                 switch (campo)
                 {
-                    case "Precio":
+                    case "Precio":              
                         switch (criterio)
                         {
 
@@ -163,7 +228,7 @@ namespace DataBase
                                 consulta += "A.Nombre like '"+ filtro+ "%' ";
                                 break;
                             case "Termina con":
-                                consulta += "A.nombre like '%" + filtro + "' ";
+                                consulta += "A.Nombre like '%" + filtro + "' ";
                                 break;
                             case "Contiene":
                                 consulta += "A.Nombre like '%" + filtro + "%' ";
