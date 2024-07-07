@@ -8,6 +8,7 @@
         <div class="mb-3">
             <label class="form-label">Email</label>
             <asp:TextBox runat="server" CssClass="form-control" ID="txtEmail" placeholder="example@email.com"></asp:TextBox>
+            <asp:Label Text="" runat="server" ID="lblEmailValido" />
             <asp:RegularExpressionValidator ErrorMessage="Ingrese un email valido" ControlToValidate="txtEmail" ValidationExpression="^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" runat="server" />
         </div>
         <div class="mb-3">

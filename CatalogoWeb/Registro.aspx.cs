@@ -25,11 +25,21 @@ namespace CatalogoWeb
                     return;
                 Usuarios user = new Usuarios();
                 UsuariosDataBase userDatabase = new UsuariosDataBase();
+                
 
                 user.Email = txtEmail.Text;
                 user.Password = txtPassword.Text;
-                int id = userDatabase.insertarNuevo(user);
-                Response.Redirect("Login.aspx", false);
+                if(!(userDatabase.validarUsuario(user)))
+                {
+                    int id = userDatabase.insertarNuevo(user);
+                    Response.Redirect("Login.aspx", false);
+                    lblEmailValido.Text = "";
+                }
+                else
+                {
+                    lblEmailValido.Text = "El email ingresado ya existe";
+                }
+
             }
             catch (Exception ex)
             {

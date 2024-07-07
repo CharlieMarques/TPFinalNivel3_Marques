@@ -28,7 +28,16 @@ namespace CatalogoWeb
                         txtApellido.Text = user.Apellido;
                         if (!string.IsNullOrEmpty(user.ImagenPerfil))
                         {
-                            imgNuevoPerfil.ImageUrl = "~/Images/" + user.ImagenPerfil;
+
+                            string image = Server.MapPath("~/Images/" + user.ImagenPerfil);
+                            if (System.IO.File.Exists(image))
+                            {
+                                imgNuevoPerfil.ImageUrl = "~/Images/" + user.ImagenPerfil + "?v=" + DateTime.Now.Ticks.ToString();
+                            }
+                            else
+                            {
+                                imgNuevoPerfil.ImageUrl = "~/Images/avatarVacio.png";
+                            }                         
                         }
                     }
                 }
@@ -64,7 +73,7 @@ namespace CatalogoWeb
                 user.ImagenPerfil = "perfil-" + user.id + ".jpg";
                 userDB.actualizar(user);
                 Image img = (Image)Master.FindControl("imgAvatar");
-                img.ImageUrl = "~/Images" + user.ImagenPerfil;
+                img.ImageUrl = "~/Images/" + user.ImagenPerfil + "?v=" + DateTime.Now.Ticks.ToString();                            
             }
             catch (Exception ex)
             {

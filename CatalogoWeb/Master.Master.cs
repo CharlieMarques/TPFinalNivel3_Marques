@@ -15,7 +15,7 @@ namespace CatalogoWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            imgAvatar.ImageUrl = "https://simg.nicepng.com/png/small/202-2022264_usuario-annimo-usuario-annimo-user-icon-png-transparent.png";
+            imgAvatar.ImageUrl = "~/Images/avatarVacio.png";
             if (!(Page is Login || Page is Registro || Page is Default || Page is Error))
             {
                 if (!SeguridadSession.sessionActiva(Session["usuario"]))
@@ -25,13 +25,23 @@ namespace CatalogoWeb
             }
             if (SeguridadSession.sessionActiva(Session["usuario"]))
             {
-                imgAvatar.ImageUrl = "~/Images/" + ((Usuarios)Session["usuario"]).ImagenPerfil;
                 Usuarios user = (Usuarios)Session["usuario"];
                 if (user.Nombre == null)
-                {
                     lblUser.Text = user.Email;
+                else
+                    lblUser.Text = user.Nombre;
+                if(!string.IsNullOrEmpty(user.ImagenPerfil))
+                {
+                    string image = Server.MapPath("~/Images/" + user.ImagenPerfil);
+                    if(System.IO.File.Exists(image))
+                    {
+                    imgAvatar.ImageUrl = "~/Images/" + user.ImagenPerfil + "?v=" + DateTime.Now.Ticks.ToString();
+                    }
+                    else
+                    {
+                        imgAvatar.ImageUrl = "~/Images/avatarVacio.png"; 
+                    }
                 }
-                else lblUser.Text = user.Nombre;
             }
         }
 
