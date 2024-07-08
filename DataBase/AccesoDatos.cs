@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 using Dominio;
 
 namespace DataBase
@@ -20,7 +21,9 @@ namespace DataBase
         }
         public AccesoDatos()
         {
-            connection = new SqlConnection("server=.\\SQLEXPRESS; database=CATALOGO_WEB_DB; integrated security=true");
+            
+            // connection = new SqlConnection("server=.\\SQLEXPRESS; database=CATALOGO_WEB_DB; integrated security=true");
+            connection = new SqlConnection(ConfigurationManager.AppSettings["cadenaConexion"]);
             command = new SqlCommand();
         }
         public void read()
